@@ -11,11 +11,12 @@ def calculate_tip():
     total_with_tip = ( float(cost.get()) * float(tip_percent.get()/100)) + float(cost.get())
     per_person = total_with_tip / people.get()
     total.set("$"+str(per_person))
-def tip_per_person():
+
+def tip_amount_per_person():
     total_with_tip = (float(cost.get()) * float(tip_percent.get() / 100)) + float(cost.get())
     per_person = total_with_tip / people.get()
     tip_amount = per_person - (float(cost.get()) / people.get())
-    total.set("$" + float(tip_amount))
+    total_tips.set("$" + str(tip_amount))
 
 # this set up the default cost of zero when the interface opens
 cost = tk.StringVar()
@@ -30,6 +31,9 @@ people = tk.IntVar()
 # this set up the default total cost of the meal (to zero) when the interface opens
 total = tk.StringVar()
 total.set("$0.0")
+
+total_tips = tk.StringVar()
+total_tips.set("$0.0")
 
 # this creates a label at the top of the screen
 word = tk.Label(root, text="Tip Calculator")
@@ -80,6 +84,17 @@ total_display.grid(row=6, column=2)
 calculate = tk.Button(root, text="Calculate tip", command=calculate_tip)
 calculate.grid(row=7, column=1, columnspan=2)
 
+
+# next we set up a label and then the total cost per person to display
+total_label = tk.Label(root, text="Total Tips Per Person")
+total_label.grid(row=8, column=1)
+
+total_display = tk.Label(root, textvariable=total_tips)
+total_display.grid(row=8, column=2)
+
+# this "calls" the function so that it will run, based on the amounts entered
+calculate = tk.Button(root, text="Calculate total tips", command=tip_amount_per_person)
+calculate.grid(row=9, column=1, columnspan=2)
 
 
 root.mainloop()
